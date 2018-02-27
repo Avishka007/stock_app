@@ -5,7 +5,12 @@
 
 	<div class="jumbotron text-center">
 		<p class="lead"> 
-		<h1>{{id}}</h1>
+		<h1>{{tweet.title}}</h1>
+		<small>Written by {{tweet.author}} on {{tweet.create_date}}</small>
+		<hr>
+		<div>
+			{{tweet.body}}
+		</div>
 		</p>
 	</div>
 	

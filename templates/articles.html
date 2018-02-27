@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+	<h1> Tweets </h1>
+	<ul class="list-group">
+		{% for article in articles %}
+		<li class="list-group-item"><a href="tweets/{{article.id}}">{{article.title}}</a></li>
+		{% endfor %}
+	</ul>
+
+
+
+
+{% endblock %}
