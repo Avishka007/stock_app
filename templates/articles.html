@@ -3,13 +3,31 @@
 
 {% block body %}
 
-	<h1> Tweets </h1>
+ <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+            <a class="text-muted" href="/articles"><h1> Notes </h1></a>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="#"></a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            
+            <a class="btn btn-sm btn-outline-secondary" href="/note">Manage</a>
+          </div>
+        </div>
+      </header>
+
 	<ul class="list-group">
 		{% for article in articles %}
 		<li class="list-group-item"><a href="tweets/{{article.id}}">{{article.title}}</a></li>
 		{% endfor %}
 	</ul>
+	<br>
 
+
+	
 
 
 

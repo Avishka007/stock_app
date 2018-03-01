@@ -47,7 +47,7 @@ def index():
 def about():
 	return render_template ('about.html')
 
-#tweets/ then articles
+#then tweets/ then articles
 @app.route('/articles')
 @is_logged_in
 def tweets():
@@ -68,6 +68,7 @@ def tweets():
 	#close connection
 	cur.close()
 
+
 #single tweet
 @app.route('/tweets/<string:id>/')
 def tweetsid(id):
@@ -80,6 +81,9 @@ def tweetsid(id):
 	tweet = cur.fetchone()
 
 	return render_template ('tweet.html', tweet=tweet)
+
+
+
 
 #Register form class
 class RegisterForm(Form):
@@ -236,6 +240,69 @@ def add_article():
 
 	return render_template('add_article.html', form=form)
 
+
+#edit article(note)
+@app.route('/edit_article/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_article(id):
+	#create cursor
+	cur = mysql.connection.cursor()
+
+	#Get article by id
+	resault = cur.execute("SELECT * FROM articles WHERE id = %s",[id])
+
+	article = cur.fetchone()
+
+	#get form
+	form = ArticleForm(request.form)
+
+	#populate article form fields
+	form.title.data = article['title']
+	form.body.data = article['body']
+
+
+	if request.method == 'POST' and form.validate():
+		title = request.form['title']
+		body = request.form['body']
+
+		#create cursor
+		cur = mysql.connection.cursor()
+
+		#Execute
+		cur.execute("UPDATE articles SET title=%s, body=%s WHERE id = %s", (title, body, id))
+
+		#Commit to DB
+		mysql.connection.commit()
+
+		#close connection
+		cur.close()
+
+		flash('Note Modified', 'success')
+
+		return redirect(url_for('dashboard'))
+
+	return render_template('edit_article.html', form=form)
+
+
+#Delete note
+@app.route('/delete_article/<string:id>', methods = ['POST'])
+@is_logged_in
+def delete_article(id):
+	#create cursor
+	cur = mysql.connection.cursor()
+
+	#Execute
+	cur.execute("DELETE FROM articles WHERE id =%s",[id])
+
+	#Commit to DB
+	mysql.connection.commit()
+
+	#close connection
+	cur.close()
+
+	flash('Note Deleted', 'success')
+
+	return redirect(url_for('note'))
 
 
 

@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+	<br>
+	<h1>Dashboard</h1>
 
-	<h1>Dashboard<small> Welcome {{session.username}}</small></h1>
+	<h4>Hi<small> {{session.username}}, </small></h4>
+	<br>
 	<a class="btn btn-info" href="/add_article">Add Note</a>
 	<hr>
 
