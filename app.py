@@ -7,6 +7,8 @@ from functools import wraps
 
 app = Flask(__name__)
 
+
+
 #config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -68,9 +70,15 @@ def tweets():
 	#close connection
 	cur.close()
 
+#########################
+
+
+
+#########################
 
 #single tweet
 @app.route('/tweets/<string:id>/')
+@is_logged_in
 def tweetsid(id):
 	#Create cursor
 	cur = mysql.connection.cursor()
@@ -300,9 +308,10 @@ def delete_article(id):
 	#close connection
 	cur.close()
 
-	flash('Note Deleted', 'success')
+	flash('Note Deleted', 'danger')
 
 	return redirect(url_for('note'))
+
 
 
 
