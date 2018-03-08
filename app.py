@@ -33,7 +33,6 @@ def is_logged_in(f):
 			return redirect(url_for('login'))
 	return wrap
 
-
 #mul ma page 1
 @app.route('/')
 def home():
