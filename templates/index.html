@@ -3,21 +3,35 @@
 
 {% block body %}
 
+<br>
+<br>
 	<div class="jumbotron text-center">
-		<h1> Welcome to my APP</h1>
-		<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		{% if session.logged_in == NULL %}
-		
-			<a href="/login" class="btn btn-outline-success btn-lg">Log in</a>
-			<a href="/register" class="btn btn-outline-primary btn-lg">Sign up</a>
-			
+			<h1> Welcome to AI Stock Predictor</h1>
+		{% else %}
+			<h1> Hi {{session.username}} this is what we do!</h1>
 		{% endif %}
 
+		<br>
+		<p> <h4>This APP is an Artificial Intelligence tool that will produce predictions for your stock market investments. Historical data based; LSTM Recurrent neural network prediction and what people are talking about the stock right now on twitter: will be used to generate the best possible prediction for you. Because of this present and past data based prediction you will be able to make predictions up to 1 Year ahead of time.... </h4><br></p>
+
+		{% if session.logged_in == NULL %}
+
+			<a href="/login" class="btn btn-outline-success btn-lg">Log in</a>&nbsp;&nbsp;&nbsp;
+			<a href="/register" class="btn btn-outline-primary btn-lg">Sign up</a>
+
+		{% else %}
+
+			<a href="/dashboard" class="btn btn-outline-primary btn-lg"> {{session.username}}, Let's go to your Dashboard</a>
+
+
+		{% endif %}
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	</div>
 
 
