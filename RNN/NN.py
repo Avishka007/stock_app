@@ -20,130 +20,106 @@ import model
 X_train, y_train, X_test, y_test = model.load_data('./stock/GOOG.csv', 55, True)
 #stocks = AMZON , APPL , citigroup , dowjones , ebay , GOOG , KO , TATA , test 
 
-def sigmoid(x):
-    x = (np.exp(x)+0.00000000001)/np.sum(np.exp(x)+0.00000000001)
-    return x
+
+def bin2int(bin_list):
+    #bin_list = [0, 0, 0, 1]
+    int_val = ""
+    for k in bin_list:
+        int_val += str(int(k))
+    #int_val = 11011011    
+    return int(int_val, 2)
+##########
+s = [0.841470985, 0.873736397, 0.90255357, 0.927808777, 0.949402346, 0.967249058, 0.98127848, 0.991435244, 0.997679266, 0.999985904, 0.998346054, 0.992766189, 0.983268329, 0.969889958, 0.952683874, 0.931717983, 0.907075026, 0.878852258, 0.847161063, 0.812126509, 0.773886863, 0.73259304, 0.688408006, 0.64150614, 0.592072543, 0.540302306, 0.486399742, 0.430577581, 0.373056127, 0.314062391, 0.253829194, 0.192594249, 0.130599223, 0.068088781, 0.005309624, -0.057490488, -0.120063711, -0.182163097, -0.243543569, -0.303962886, -0.3631826, -0.420968998, -0.477094024, -0.531336178, -0.583481391, -0.633323869, -0.680666907, -0.725323664, -0.7671179, -0.805884672, -0.841470985, -0.873736397, -0.90255357, -0.927808777, -0.949402346, -0.967249058, -0.98127848, -0.991435244, -0.997679266, -0.999985904, -0.998346054, -0.992766189, -0.983268329, -0.969889958, -0.952683874, -0.931717983, -0.907075026, -0.878852258, -0.847161063, -0.812126509, -0.773886863, -0.73259304, -0.688408006, -0.64150614, -0.592072543, -0.540302306, -0.486399742, -0.430577581, -0.373056127, -0.314062391, -0.253829194, -0.192594249, -0.130599223, -0.068088781, -0.005309624, 0.057490488, 0.120063711, 0.182163097, 0.243543569, 0.303962886, 0.3631826, 0.420968998, 0.477094024, 0.531336178, 0.583481391, 0.633323869, 0.680666907, 0.725323664, 0.7671179, 0.805884672, 0.841470985, 0.873736397, 0.90255357, 0.927808777, 0.949402346, 0.967249058, 0.98127848, 0.991435244, 0.997679266, 0.999985904, 0.998346054, 0.992766189, 0.983268329, 0.969889958, 0.952683874, 0.931717983, 0.907075026, 0.878852258, 0.847161063, 0.812126509, 0.773886863, 0.73259304, 0.688408006, 0.64150614, 0.592072543, 0.540302306, 0.486399742, 0.430577581, 0.373056127, 0.314062391, 0.253829194, 0.192594249, 0.130599223, 0.068088781, 0.005309624, -0.057490488, -0.120063711, -0.182163097, -0.243543569, -0.303962886, -0.3631826, -0.420968998, -0.477094024, -0.531336178, -0.583481391, -0.633323869, -0.680666907, -0.725323664, -0.7671179, -0.805884672, -0.841470985, -0.873736397, -0.90255357, -0.927808777, -0.949402346, -0.967249058, -0.98127848, -0.991435244, -0.997679266, -0.999985904, -0.998346054, -0.992766189, -0.983268329, -0.969889958, -0.952683874, -0.931717983, -0.907075026, -0.878852258, -0.847161063, -0.812126509, -0.773886863, -0.73259304]
+
+my_list = [float(i) for i in s]
+r =my_list
+
+def dataset(num):
+    # num - no of samples
+    bin_len = 20
+    X = np.zeros((num, bin_len))
+    Y = np.zeros((num))
+
+    for i in range(num):
+        X[i] = np.around(np.random.rand(bin_len)).astype(int)
+        Y[i] = bin2int(X[i])
+    return X, Y
+
+no_of_smaples = 20
+
+train_X ,train_Y = dataset(no_of_smaples)
+#print (train_X)
+#print (train_Y)
+
+
+trainX, trainY = dataset(no_of_smaples)
+testX, testY = dataset(50) # this nu is number of answers
 
 class RNN:
-    def __init__(self, input_dim, hidden_nodes, output_dim):
-        self.Wxh = np.random.random([hidden_nodes, input_dim])*0.01
-        self.Bxh = np.random.random([hidden_nodes])*0.01
-        self.Whh = np.random.random([hidden_nodes, hidden_nodes])*0.01
-        self.Bhh = np.random.random([hidden_nodes])*0.01
-        self.Wyh = np.random.random([output_dim, hidden_nodes])*0.01
-        self.Byh = np.random.random([output_dim])*0.01
-        self.h = np.random.random([hidden_nodes])*0.01
+    def __init__(self):
+        self.W = [1, 1]
+        self.W_delta = [0.001, 0.001]
+        self.W_sign = [0, 0]
 
-    def forward(self, x):
-        T = x.shape[1]
-        states = []
-        output = []
-        for i in range(T):
-            if i == 0:
-                ht = np.tanh(np.dot(self.Wxh, x[:, i]) + self.Bxh + np.dot(self.Whh, self.h))
+        self.eta_p = 1.2
+        self.eta_n = 0.5
+
+    def state(self, xk, sk):
+        return xk * self.W[0] + sk * self.W[1]
+
+    def forward_states(self, X):
+        S = np.zeros((X.shape[0], X.shape[1]+1))
+        for k in range(0, X.shape[1]):
+            next_state = self.state(X[:,k], S[:,k])
+            S[:,k+1] = next_state
+        return S
+
+    def output_gradient(self, guess, real):
+        return 2 * (guess - real) / no_of_smaples
+
+    def backward_gradient(self, X, S, grad_out):
+        grad_over_time = np.zeros(( X.shape[0], X.shape[1]+1 ))
+        grad_over_time[:,-1] = grad_out
+
+        wx_grad = 0
+        wr_grad = 0
+        for k in range(X.shape[1], 0, -1):
+            wx_grad += np.sum( grad_over_time[:, k] * X[:, k-1] )
+            wr_grad += np.sum( grad_over_time[:, k] * S[:, k-1] )
+
+            grad_over_time[:, k-1] = grad_over_time[:, k] * self.W[1]
+        return (wx_grad, wr_grad), grad_over_time
+
+    def update_rprop(self, X, Y, W_prev_sign, W_delta):
+        S = self.forward_states(X)
+        grad_out =  self.output_gradient(S[:, -1], Y)
+        W_grads, _ = self.backward_gradient(X, S, grad_out)
+        self.W_sign = np.sign(W_grads)
+        print ("loss : {:0.08f}".format(np.mean(grad_out)))
+
+        for i, _ in enumerate(self.W):
+            if self.W_sign[i] == W_prev_sign[i]:
+                W_delta[i] *= self.eta_p
             else:
-                ht = np.tanh(np.dot(self.Wxh, x[:, i]) + self.Bxh + np.dot(self.Whh, states[i-1]))
-            ot = sigmoid(np.dot(self.Wyh, ht) + self.Byh)
-            states.append(ht)
-            output.append(ot)
-        return states, output
+                W_delta[i] *= self.eta_n
+        self.W_delta = W_delta
 
-    def backword(self, x, y, h, output, lr=0.002):
-        T = x.shape[1]
-        dL_T = np.dot( np.transpose(self.Wyh), output[-1]-y[:, -1])
-        loss = np.sum(-y[:, -1]*np.log(output[-1]))
-        dL_ht = dL_T
-        D_Wyh = np.zeros_like(self.Wyh)
-        D_Byh = np.zeros_like(self.Byh)
-        D_Whh = np.zeros_like(self.Whh)
-        D_Bhh = np.zeros_like(self.Bhh)
-        D_Wxh = np.zeros_like(self.Wxh)
-        D_Bxh = np.zeros_like(self.Bxh)
-        for t in range(T-2, -1, -1):
-            dQ = (output[t] - y[:, t])
-            DL_Qt = np.dot(np.transpose(self.Wyh), dQ)
+    def train(self, X, Y, training_epochs):
+        for epochs in range(training_epochs):
+            self.update_rprop(X, Y, self.W_sign, self.W_delta)
 
-            dy = (1 - h[t]*h[t])
-            dL_ht += np.dot(np.transpose(self.Wyh), dQ)
+            for i, _ in enumerate(self.W):
+                self.W[i] -= self.W_sign[i] * self.W_delta[i]
 
-            D_Wyh += np.outer(dQ, h[t])
-            D_Byh += dQ
 
-            D_Wxh += np.outer(dy*dL_ht, x[:, t])
-            D_Bxh += dy*dL_ht
+rnn = RNN()
+rnn.train(trainX, trainY, 20000)
+print ("Weight: \t", rnn.W)
+print ("input: \t\t", testY)
 
-            D_Whh += np.outer(dy*dL_ht, h[t-1])
-            D_Bhh += dy*dL_ht
+y = rnn.forward_states(testX)[:, -1]
+print ("Predicted: \t",y)
 
-            loss += np.sum(-y[:, t]*np.log(output[t]))
-        for dparam in [D_Wyh, D_Byh, D_Wxh, D_Bxh, D_Whh, D_Bhh]:
-            np.clip(dparam, -5, 5, out=dparam)
-
-        self.Wyh -= lr*D_Wyh/np.sqrt(D_Wyh*D_Wyh + 0.00000001)
-        self.Wxh -= lr*D_Wxh/np.sqrt(D_Wxh*D_Wxh + 0.00000001)
-        self.Whh -= lr*D_Whh/np.sqrt(D_Whh*D_Whh + 0.00000001)
-        self.Byh -= lr*D_Byh/np.sqrt(D_Byh*D_Byh + 0.00000001)
-        self.Bhh -= lr*D_Bhh/np.sqrt(D_Bhh*D_Bhh + 0.00000001)
-        self.Bxh -= lr*D_Bxh/np.sqrt(D_Bxh*D_Bxh + 0.00000001)
-        self.h -= lr*dL_ht/np.sqrt(dL_ht*dL_ht + 0.00000001)
-        return loss, self.h
-    def sample(self, x):
-        h = self.h
-        predict = []
-        for i in range(9-1):
-            ht = np.tanh(np.dot(self.Wxh, x) + self.Bxh + np.dot(self.Whh, h))
-            ot = sigmoid(np.dot(self.Wyh, ht) + self.Byh)
-            ynext = np.argmax(ot)
-            predict.append(ynext)
-            x = np.zeros_like(x)
-            x[ynext] = 1
-        return predict
-
-#create 2000 sequences with 10 number in each sequence
-def getrandomdata(nums):
-    x = np.zeros([nums, 10, 10], dtype=float)
-    y = np.zeros([nums, 10, 10], dtype=float)
-    for i in range(nums):
-        tmpi = np.random.randint(0, 10)
-        for j in range(10):
-            if tmpi < 9:
-                x[i, tmpi, j], y[i, tmpi+1, j] = 1.0, 1.0
-                tmpi = tmpi+1
-            else:
-                x[i, tmpi, j], y[i, 0, j] = 1.0, 1.0
-                tmpi = 0
-    return x, y
-
-def test(nums):
-    testx = np.zeros([nums, 10], dtype=float)
-    for i in range(nums):
-        man = [1,2,3,4,5,5,]
-        #tmpi = np.random.randint(0, 9)
-        tmpi = np.random.choice(man)
-        testx[i, tmpi] = 1
-    #for i in range(nums):
-        
-        #print('input number:', np.argmax(testx[i]))
-        #print('future prediction sequence:   ', model.sample(testx[i]) )
-
-if __name__ == '__main__':
-    #x0 = [0, 1, 2, 3, 4, 5, 6, 7, 8]--> y0 = [1, 2, 3, 4, 5, 6, 7, 8, 0],            x1 = [5, 6, 7, 8, 0, 1, 2, 3, 4]--> y1 = [6, 7, 8, 0, 1, 2, 3, 4, 5]
-    model = RNN(10, 200, 10)
-    state = np.random.random(100)
-    epoches = 1;
-    smooth_loss = 0
-    for ll in range(epoches):
-        #print('epoch i:', ll)
-        x, y = getrandomdata(2000)
-        for i in range(x.shape[0]):
-            h, output = model.forward(x[i])
-            loss, state = model.backword(x[i], y[i], h, output, lr=0.001)
-            if i == 1:
-                smooth_loss = loss
-            else:
-                smooth_loss = smooth_loss * 0.999 + loss * 0.001
-            print('loss ----  ', smooth_loss)               #if you want to see the cost, you can uncomment this line to observe the cost
-        test(7)
 
 
 #creating the model
@@ -175,7 +151,7 @@ model.fit(
     #initialize batch size here:
     batch_size=512,
     #initialize epoch here:
-    nb_epoch=5,
+    nb_epoch=1,
     validation_split=0.05)
 
 
@@ -193,8 +169,8 @@ def many_predictions(predicted_data, true_data, prediction_len):
     ax.plot(true_data, label='Real Data')
     print ('process done open the plot')
     #Pad the list of predictions to shift it in the graph to it's correct start
-    for i, data in enumerate(predicted_data):
-        padding = [None for p in range(i * prediction_len)]
+    for i, data in enumerate(predicted_data[1:]):
+        padding = [None for p in range((i+1) * prediction_len)]
         plt.plot(padding + data,color='#2920b2')
         plt.xlabel('Years')
         plt.ylabel('Closing price')
@@ -356,7 +332,7 @@ def load_data(filename, seq_len, normalise_window):
     x_test = result[int(row):, :-1]
     y_test = result[int(row):, -1]
 
-    #before feeding the row data in to the network lets reshape the x_train and x_test tensors.
+    
     x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
     x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))  
     #print (x_train)
@@ -400,18 +376,6 @@ def build_model_twoLayer(layers):
     return model
 
 
-
-########################################################################################
-
-def predict_sequence_full(model, data, window_size):
-    #Shift the window by 1 new prediction for each time, and repeat predictions on new windows
-    curr_frame = data[0]
-    predicted = []
-    for i in xrange(len(data)):
-        predicted.append(model.predict(curr_frame[newaxis,:,:])[0,0])
-        curr_frame = curr_frame[1:]
-        curr_frame = np.insert(curr_frame, [window_size-1], predicted[-1], axis=0)
-    return predicted
 
 
 ##########################################################################################
