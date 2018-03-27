@@ -350,6 +350,12 @@ def many_predictions(predicted_data, true_data, prediction_len):
     rr=[]
     rr=predicted_data
 
+    td = true_data
+    td1 = [float(i) for i in td]
+    #print (td1)
+    df1 = pd.DataFrame(td1)
+    df1.to_csv("realdata.csv")
+
     #ss is the numpy array of predicted data set. there 7 predictions.
     ss=(predicted_data)
 

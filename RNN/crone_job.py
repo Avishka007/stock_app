@@ -4,7 +4,7 @@ import time
 
 def job(t):
 	print ("starting from a cronjob!")
-	import lstm #run NN
+	import automator #to run the nn and save values to csvs
 
 schedule.every().day.at("21:08").do(job,'starting to build predictions')
 
