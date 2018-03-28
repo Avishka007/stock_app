@@ -15,8 +15,9 @@ from statistics import mean
 import loaddata
 
 
+
 #Loading Stock Data from saved CSV.
-X_train, y_train, X_test, y_test = loaddata.load_data('./stock/GOOG.csv', 55, True)
+X_train, y_train, X_test, y_test = loaddata.load_data('./stock/ebay.csv', 55, True)
 #stocks = AMZON , APPL , citigroup , dowjones , ebay , GOOG , KO , TATA , test 
 
 
@@ -318,7 +319,7 @@ model.fit(
     #initialize batch size here:
     batch_size=512,
     #initialize epoch here:
-    nb_epoch=3,
+    nb_epoch=5,
     validation_split=0.05)
 
 
@@ -366,111 +367,7 @@ def many_predictions(predicted_data, true_data, prediction_len):
     df = pd.DataFrame(ss)
     df.to_csv("p_values.csv")
     print("p_values.csv has been updated")
-
-    
-#open the saved csv and plot all 50 records to a new prediction plot
-    file = open('p_values.csv',newline='')
-    reader = csv.reader(file)
-
-    header = next(reader)
-
-    data=[]
-
-    for row in reader:
-        p1=(row[1])
-        p2=(row[2])
-        p3=(row[3])
-        p4=(row[4])
-        p5=(row[5])
-        p6=(row[6])
-        p7=(row[7])
-        p8=(row[8])
-        p9=(row[9])
-        p10=(row[10])
-        p11=(row[11])
-        p12=(row[12])
-        p13=(row[13])
-        p14=(row[14])
-        p15=(row[15])
-        p16=(row[16])
-        p17=(row[17])
-        p18=(row[18])
-        p19=(row[19])
-        p20=(row[20])
-        p21=(row[21])
-        p22=(row[22])
-        p23=(row[23])
-        p24=(row[24])
-        p25=(row[25])
-        p26=(row[26])
-        p27=(row[27])
-        p28=(row[28])
-        p29=(row[29])
-        p30=(row[30])
-        p31=(row[31])
-        p32=(row[32])
-        p33=(row[33])
-        p34=(row[34])
-        p35=(row[35])
-        p36=(row[36])
-        p37=(row[37])
-        p38=(row[38])
-        p39=(row[39])
-        p40=(row[40])
-        p41=(row[41])
-        p42=(row[42])
-        p43=(row[43])
-        p44=(row[44])
-        p45=(row[45])
-        p46=(row[46])
-        p47=(row[47])
-        p48=(row[48])
-        p49=(row[49])
-        p50=(row[50])
-    #print(p1)
-
-    s=[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21,p22,p23,p24,p25,p26,p27,p28,p29,p30,p31,p32,p33,p34,p35,p36,p37,p38,p39,p40,p41,p42,p43,p44,p45,p46,p47,p48,p49,p50]
-
-    #save gathered 8th prediction plots to slope.csv to calculate the slope later
-    df = pd.DataFrame(s)
-    df.to_csv("slope.csv")
-    print("slope.csv has been updated")
-
-    #print(s)
-
-
-    x,y=[],[]
-    #read slope.csv to calculate the last predictions slope:
-    with open ('slope.csv','r') as csvfile:
-        plots = csv.reader(csvfile , delimiter=',')
-        for row in plots:
-            x.append(row[0]) 
-            y.append(float(row[1])*10000)
-
-    #print(x)
-    #print(y)
-    st=y[1]
-
-
-    xs = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50])
-    ys = np.array([y[1],y[2],y[3],y[4],y[5],y[6],y[7],y[8],y[9],y[10],y[11],y[12],y[13],y[14],y[15],y[16],y[17],y[18],y[19],y[20],y[21],y[22],y[23],y[24],y[25],y[26],y[27],y[28],y[29],y[30],y[31],y[32],y[33],y[34],y[35],y[36],y[37],y[38],y[39],y[40],y[41],y[42],y[43],y[44],y[45],y[46],y[47],y[48],y[49],y[50]      ])
-
-    #this function is to calculate the slope of the prediction (the best fit slope):
-    def best_fit_slope(xs,ys):
-        m = (((mean(xs)*mean(ys)) - mean(xs*ys)) /
-             ((mean(xs)* (mean(xs)) - mean(xs**2))))
-        return m
-
-    m = best_fit_slope(xs,ys)
-    
-    #best fit slope is y=mx+c type of function.
-    #m is the slope
-    #depending on the slope we can say the confidense of the prediction
-
-    # round up the slope value
-    m=round(m, 2)
-    print(m,": is the value of slope")
-    print(m)
+ 
     
     plt.show()
 

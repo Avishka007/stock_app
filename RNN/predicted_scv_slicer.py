@@ -121,12 +121,13 @@ m = best_fit_slope(xs,ys)
 #print(m*10000,"\t: is the m value of slope 7")
 m7 = m*10000
 
+
 r8 = lines[8].strip().split(',')
 rr8 =  (r8[1:51])
 rr8 = [float(i) for i in rr8]
 ##print (rr8)
 df8 = pd.DataFrame(rr8)
-#df8.to_csv("8th.csv")
+#df8.to_csv("./final_prediction/EBAY.csv")
 xs = np.array(list(range(0, 50)))
 ys = np.array(rr8)
 def best_fit_slope(xs,ys):
@@ -134,6 +135,7 @@ def best_fit_slope(xs,ys):
          ((mean(xs)* (mean(xs)) - mean(xs**2))))
     return m
 m = best_fit_slope(xs,ys)
-#print(m*10000,"\t: is the m value of slope 8")
+#print(m*10000,"\t: is the m value of final prediction")
+#print (rr8)
 
 

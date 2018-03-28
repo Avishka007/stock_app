@@ -117,7 +117,7 @@ a7 = float("{0:.2f}".format(a7))
 
 q = [a2,a3,a4,a5,a6,a7]
 result = float("{0:.2f}".format(np.prod(np.array(q))))
-#print (q)
+print (q)
 
 
 
