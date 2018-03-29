@@ -40,19 +40,23 @@ app = dash.Dash()
 app.layout = html.Div(children=[
     html.H1(children='Final Prediction '),
     dcc.Graph(
-        id='example',animate=True,
+        id='example',
         figure={
             'data': [
                 {'x': list(range(0, 50)), 'y': col, 'type': 'line', 'name': 'future stock movement'}
                 
 
+
             ],
             'layout': {
                 'title':  conf
+                
             }
         }
     )
 ])
+
+
 
 if __name__ == '__main__':
     app.run_server(port = 8082, debug=True)

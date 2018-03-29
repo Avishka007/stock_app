@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+	<br>
+	<h1>Final Prediction</h1>
+
+
+	<div class="jumbotron text-center">
+		<p class="lead"> Hi, {{session.username}} !<br> Please select your stock which you would like to view predictions</p>
+
+		<style>
+		/* Style The Dropdown Button */
+		.dropbtn {
+		    background-color: #4CAF50;
+		    color: white;
+		    padding: 16px;
+		    font-size: 16px;
+		    border: none;
+		    cursor: pointer;
+		}
+
+		/* The container <div> - needed to position the dropdown content */
+		.dropdown {
+		    position: relative;
+		    display: inline-block;
+		}
+
+		/* Dropdown Content (Hidden by Default) */
+		.dropdown-content {
+		    display: none;
+		    position: absolute;
+		    background-color: #f9f9f9;
+		    min-width: 160px;
+		    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		    z-index: 1;
+		}
+
+		/* Links inside the dropdown */
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		}
+
+		/* Change color of dropdown links on hover */
+		.dropdown-content a:hover {background-color: #f1f1f1}
+
+		/* Show the dropdown menu on hover */
+		.dropdown:hover .dropdown-content {
+		    display: block;
+		}
+
+		/* Change the background color of the dropdown button when the dropdown content is shown */
+		.dropdown:hover .dropbtn {
+		    background-color: #3e8e41;
+		}
+		</style>
+
+		<div class="dropdown">
+		  <button class="dropbtn">Your Stocks List</button>
+		  <div class="dropdown-content">
+		    <a href="http://127.0.0.1:8081/">Google</a>
+		    <a href="http://127.0.0.1:8082/">Apple</a>
+		    <a href="http://127.0.0.1:8083/">Dow johnes</a>
+		    <a href="http://127.0.0.1:8084/">eBay</a>
+		    <a href="http://127.0.0.1:8085/">Yahoo</a>
+		    <a href="http://127.0.0.1:8086/">Amazon</a>
+		    <a href="http://127.0.0.1:8087/">TATA motors</a>
+		    <a href="http://127.0.0.1:8088/">Toyota</a>
+		    <a href="http://127.0.0.1:8089/">Citi Group</a>
+		    <a href="http://127.0.0.1:8090/">Coca Cola</a>
+		  </div>
+		</div>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+		<a class="btn btn-info" href="/add_stocks">Add more stocks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a class="btn btn-info pull-right" href="/lala">Sentiment Analysis</a>
+	<br><br>
+
+	</div>
+
+	
+	
+	
+
+{% endblock %}

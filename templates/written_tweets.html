@@ -17,21 +17,16 @@
 			<br>
 			<br>
 
-			<h1>Tweet Sentiment Analysis </h1>
-			<h5>Search what people are talking about stocks on twitter</h5>
-			
+			<h1>Search tweets </h1>
+			<h5>Read latest 100 tweets to understand what people are talking about your stocks on twitter</h5>
 			<div id="search_box" class="container-fluid">
 				<input type="text" id="query">
 				<button id="search">Search Twitter</button>
 				
 				<div id="loading">Looking for tweets.....</div>
-				<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-				<button id="getcsv">Download tweets as a CSV</button><br>
-				<br>
-				<br>
-				<h3>Scroll down to view tweets.  </h3>
-				<br>
-			</div>	
+			</div><br><br>
+			
+			
 		</div>
 		<div id="tweets"></div></div></body>
 		
@@ -68,7 +63,7 @@
                     contents+='</div>';
 			        container.html(contents);
 			        $('#query').val(querystring);
-			        $('#loading').html(data['count'] + " Tweets have been analyzed about "+ querystring +".");
+			        $('#loading').html(data['count'] + " Tweets have been collected about "+ querystring +".");
 			    }
 			});
 		}
@@ -197,5 +192,10 @@ function getPercentage(data) {
 }
 
 	</script>
+	<div >
+				
+				<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				
+			</div>	
 </body>
 </html>

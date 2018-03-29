@@ -1,5 +1,3 @@
-# author = rhnvrm <hello@rohanverma.net>
-
 import os
 import re
 import tweepy
@@ -49,6 +47,7 @@ class TwitterClient(object):
             return 'neutral'
         else:
             return 'negative'
+
 
     def get_tweets(self):
         tweets = []

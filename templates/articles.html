@@ -14,14 +14,14 @@
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             
-            <a class="btn btn-sm btn-outline-secondary" href="/note">Manage</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/note">Manage Notes</a>
           </div>
         </div>
       </header>
 
 	<ul class="list-group">
 		{% for article in articles %}
-		<li class="list-group-item"><a href="tweets/{{article.id}}"> {{article.title}} - by - {{article.author}}</a></li>
+		<li class="list-group-item"><a href="tweets/{{article.id}}"> {{article.author}} wrote - {{article.title}}  </a></li>
 		{% endfor %}
 	</ul>
 	<br>

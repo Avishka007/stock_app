@@ -50,7 +50,7 @@ def index():
 def about():
 	return render_template ('about.html')
 
-#then tweets/ then articles
+#then tweets/ now articles
 @app.route('/articles')
 @is_logged_in
 def tweets():
@@ -316,7 +316,7 @@ def delete_article(id):
 def strtobool(v):
     return v.lower() in ["yes", "true", "t", "1"]
 
-@app.route('/lala')
+@app.route('/sent')
 def lala():
 
     return render_template('twitter_sen.html')
@@ -332,6 +332,22 @@ def tweetsla():
 
         tweets = api.get_tweets()
         return jsonify({'data': tweets, 'count': len(tweets)})
+
+
+@app.route('/final_prediction')
+@is_logged_in
+def final_prediction():
+	return render_template ('final_prediction.html')
+
+@app.route('/add_stocks')
+@is_logged_in
+def add_stocks():
+	return render_template ('add_stocks.html')
+
+@app.route('/written_tweets')
+@is_logged_in
+def written_tweets():
+	return render_template ('written_tweets.html')
 
 
 

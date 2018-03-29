@@ -37,4 +37,4 @@ def update_value(input_data):
     )
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(port=9091, debug=True)

@@ -1,3 +1,5 @@
+#this py file will grab stock data and run NN every day right after NYSE announses their closing prices.
+
 import schedule
 import time
 
